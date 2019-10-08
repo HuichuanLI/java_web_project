@@ -26,6 +26,9 @@ public class CategoryServlet extends HttpServlet {
         } else if ("update".equals(methodName)) {
             // 修改分类的方法
             update(request, response);
+        }else if("delete".equals(methodName)){
+            // 删除分类的方法:
+            delete(request,response);
         }
 
 
@@ -63,6 +66,9 @@ public class CategoryServlet extends HttpServlet {
             save(request, response);
         } else if ("edit".equals(methodName)) {
             edit(request, response);
+        }else if("delete".equals(methodName)){
+            // 删除分类的方法:
+            delete(request,response);
         }
     }
 
@@ -106,4 +112,22 @@ public class CategoryServlet extends HttpServlet {
         request.getRequestDispatcher("/admin/category_update.jsp").forward(request, response);
 
     }
+
+    /**
+     * 后台分类管理删除分类的方法
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // 接收数据:
+        Integer cid = Integer.parseInt(request.getParameter("cid"));
+        // 处理数据:
+        CategoryService categoryService = new CategoryServiceImpl();
+        categoryService.delete(cid);
+        // 页面跳转
+        response.sendRedirect(request.getContextPath()+"/CategoryServlet?method=findall");
+    }
+
+
 }

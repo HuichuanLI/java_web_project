@@ -13,5 +13,6 @@ public interface CategoryDao {
 
     void update(Category category);
 
+    void delete(Integer cid);
 
 }

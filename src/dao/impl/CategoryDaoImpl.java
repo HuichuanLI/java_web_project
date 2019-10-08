@@ -132,4 +132,28 @@ public class CategoryDaoImpl implements CategoryDao {
             JDBCUtils.release(pstmt, conn);
         }
     }
+
+    @Override
+    public void delete(Integer cid) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            // 获得连接
+            conn = JDBCUtils.getConnection();
+            // 编写SQL:
+            String sql = "delete from category where cid = ?";
+            // 预编译SQL:
+            pstmt = conn.prepareStatement(sql);
+            // 设置参数:
+            pstmt.setInt(1, cid);
+            // 执行SQL：
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.release(pstmt, conn);
+        }
+    }
+
+
 }

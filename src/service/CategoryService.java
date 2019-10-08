@@ -13,4 +13,6 @@ public interface CategoryService {
 
     Category findone(int cbid);
 
+    void delete(Integer cid);
+
 }
