@@ -140,10 +140,31 @@ public class ProductDaoImpl implements ProductDao {
             pstmt.setString(5, product.getFilename());
             pstmt.setString(6, product.getPath());
             pstmt.setInt(7, product.getCategory().getCid());
-            pstmt.setInt(7, product.getPid());
-            // 执行SQL语句
-            pstmt.executeQuery();
+            pstmt.setInt(8, product.getPid());
+            System.out.println(product.getPid());
 
+            // 执行SQL语句
+//            pstmt.executeQuery();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtils.release(pstmt, conn);
+        }
+    }
+
+    @Override
+    public void delete(Integer pid) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try {
+            conn = JDBCUtils.getConnection();
+            String sql = "delete from product where pid = ?";
+            pstmt = conn.prepareStatement(sql);
+            // 设置参数:
+            pstmt.setInt(1, pid);
+            // 执行SQL:
+            pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

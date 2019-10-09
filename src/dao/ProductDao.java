@@ -12,4 +12,6 @@ public interface ProductDao {
     Product findOne(Integer pid);
 
     void update(Product product);
+
+    void delete(Integer pid);
 }

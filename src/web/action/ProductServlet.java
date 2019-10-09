@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,32 @@ public class ProductServlet extends HttpServlet {
             edit(request, response);
         } else if ("update".equals(methodName)) {
             update(request, response);
+        } else if ("delete".equals(methodName)) {
+            // 删除分类的方法:
+            delete(request, response);
         }
+    }
+
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Integer pid = Integer.parseInt(request.getParameter("pid"));
+        // 调用业务层处理数据:
+        System.out.println(pid);
+        ProductService productService = new ProductServiceImpl();
+        // 查询商品信息：
+        Product product = productService.findOne(pid);
+        String path = product.getPath();
+
+        if (path != null && !"".equals(path)) {
+            String realPath = this.getServletContext().getRealPath(path);
+            System.out.println(realPath);
+            File file = new File(realPath);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+        productService.delete(pid);
+        response.sendRedirect(request.getContextPath()+"/ProductServlet?method=findall");
+
     }
 
     /**
@@ -132,5 +158,6 @@ public class ProductServlet extends HttpServlet {
         //  页面跳转
         response.sendRedirect(request.getContextPath() + "/ProductServlet?method=findall");
     }
+
 
 }
