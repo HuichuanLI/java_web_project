@@ -34,7 +34,7 @@ public class CategoryDaoImpl implements CategoryDao {
                 Category category = new Category();
                 category.setCid(rs.getInt("cid"));
                 category.setCname(rs.getString("cname"));
-                category.setCdesc(rs.getString("cdesc"));
+                category.setCdesc(rs.getString("cdes"));
 
                 list.add(category);
             }
