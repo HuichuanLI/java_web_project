@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(value = "/CategoryServlet")
@@ -28,7 +29,11 @@ public class CategoryServlet extends HttpServlet {
             update(request, response);
         }else if("delete".equals(methodName)){
             // 删除分类的方法:
-            delete(request,response);
+            try {
+                delete(request,response);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
 
@@ -68,7 +73,11 @@ public class CategoryServlet extends HttpServlet {
             edit(request, response);
         }else if("delete".equals(methodName)){
             // 删除分类的方法:
-            delete(request,response);
+            try {
+                delete(request,response);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -119,7 +128,7 @@ public class CategoryServlet extends HttpServlet {
      * @param response
      * @throws IOException
      */
-    private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         // 接收数据:
         Integer cid = Integer.parseInt(request.getParameter("cid"));
         // 处理数据:

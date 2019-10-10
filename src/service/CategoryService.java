@@ -2,6 +2,7 @@ package service;
 
 import domain.Category;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface CategoryService {
@@ -13,6 +14,6 @@ public interface CategoryService {
 
     Category findone(int cbid);
 
-    void delete(Integer cid);
+    void delete(Integer cid) throws SQLException;
 
 }

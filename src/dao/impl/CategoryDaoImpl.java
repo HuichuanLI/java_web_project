@@ -7,6 +7,7 @@ import utils.JDBCUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -155,5 +156,30 @@ public class CategoryDaoImpl implements CategoryDao {
         }
     }
 
-
+    @Override
+    public void delete(Connection connection, Integer cid) {
+        PreparedStatement pstmt = null;
+        try {
+            // 获得连接
+            connection = JDBCUtils.getConnection();
+            // 编写SQL:
+            String sql = "delete from category where cid = ?";
+            // 预编译SQL:
+            pstmt = connection.prepareStatement(sql);
+            // 设置参数:
+            pstmt.setInt(1, cid);
+            // 执行SQL：
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           if(pstmt!=null){
+               try {
+                   pstmt.close();
+               } catch (SQLException e) {
+                   e.printStackTrace();
+               }
+           }
+        }
+    }
 }

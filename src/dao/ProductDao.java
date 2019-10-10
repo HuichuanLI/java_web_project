@@ -2,6 +2,7 @@ package dao;
 
 import domain.Product;
 
+import java.sql.Connection;
 import java.util.List;
 
 public interface ProductDao {
@@ -13,5 +14,13 @@ public interface ProductDao {
 
     void update(Product product);
 
+    void update(Connection connection, Product product);
+
+
     void delete(Integer pid);
+
+    List<Product> findByCid(Integer cid);
+    int findCount();
+
+    List<Product> findByPage(int begin, int limit);
 }

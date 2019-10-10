@@ -44,7 +44,7 @@ public class UserServlet extends HttpServlet {
         User existUser = userService.login(user);
         if (existUser == null) {
             request.setAttribute("msg", "用户名或密码错误");
-            request.getRequestDispatcher("/admin/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         } else {
             request.getSession().setAttribute("existUser", existUser);
             response.sendRedirect(request.getContextPath()+"/CategoryServlet?method=findall");
@@ -53,6 +53,6 @@ public class UserServlet extends HttpServlet {
     }
     private void logout(HttpServletRequest request,HttpServletResponse response) throws IOException {
         request.getSession().invalidate();
-        response.sendRedirect(request.getContextPath()+"/admin/login.jsp");
+        response.sendRedirect(request.getContextPath()+"/login.jsp");
     }
 }
